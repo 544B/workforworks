@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cwd=`dirname $0`
+cd $cwd
+ls
+url=$1
+name=${url##*/}
+tmp=${url##.*}
+dir=./src/trunk/sp/library/sp${url%%.*}
+echo 'URL:      ' ${url}
+echo 'FileNames:' ${name%%.*}
+echo 'Directory:'
+mkdir -p ${dir}
+cp -r ./src/trunk/sp/library/sp/tmpl/* ${dir}
+tree ${dir}
+sips --getProperty pixelWidth --getProperty pixelHeight ${dir}/images/sp/*
