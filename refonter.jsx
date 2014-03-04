@@ -1,20 +1,38 @@
-refont()
-function refont(){
-	setFont = "MS-PGothic";
-	reFont =  "HiraKakuPro-W3";
-	fontSize = 24;
-	regObj = new RegExp(setFont,"g");
-	layObj = activeDocument.layers;
-	for (i=0; i<layObj.length; i++) {
-		current = layObj[i];
-		if (current.kind === LayerKind.TEXT) {
-			fontName = current.textItem.font;
-			result = fontName.match(regObj);
-			if (result) {
-				// fontSize = eval(layObj[i].textItem.size) * 2;
-				current.textItem.size = fontSize;
-				current.textItem.font = reFont;
-			}
-		}
-	}
+/*
+ * P2S Font Changer - ver 0.0.4
+ * Change DeviceFont DesignComp PC to SP
+ */
+
+function refont(el) {
+
+  var layers      = el.layers;
+
+  var setFont     = "MS-PGothic";
+      reFont      =  "HiraKakuPro-W3",
+      fontSize    = 24,
+      lineHeight  = 30,
+      check       = new RegExp(setFont,"g");
+
+  for ( var layerIndex = layers.length; layerIndex > 0; layerIndex-- ) {
+    var currentLayer = layers[layerIndex-1];
+
+    if ( currentLayer.typename === "LayerSet" ) {
+      refont(currentLayer);
+    } else {
+      if ( currentLayer.kind === LayerKind.TEXT ) {
+        var target = currentLayer.textItem;
+
+        if ( target.font.match(check) ) {
+          target.size             = fontSize;
+          target.leading          = lineHeight;
+          target.font             = reFont;
+          target.antiAliasMethod  = AntiAlias.SHARP;
+        }
+
+      }
+    }
+
+  }
 }
+
+refont(app.activeDocument);
