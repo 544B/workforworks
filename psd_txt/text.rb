@@ -2,7 +2,7 @@ require 'psd'
 require "json"
 require "pp"
 
-path = 'test.psd'
+path = 'text.psd'
 
 hash = PSD.open(path) do |psd|
 	psd.tree.to_hash
@@ -18,3 +18,4 @@ File.open(File.expand_path("./text.json"), "w") do |file|
 end
 
 puts hash[:children].to_s.scan(/(?<=\:text\=>\{\:value=>\")[^\"]+/).uniq.sort
+
