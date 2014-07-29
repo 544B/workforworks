@@ -14,7 +14,7 @@ perl -p -i -e "s/pixelHeight: /height=\"/g" $data && \
 perl -p -i -e "s/\s\s//g" $data && \
 perl -p -i -e "s/\n/\" /g" $data && \
 perl -p -i -e "s/(?!^)</alt=\"\" \/>\n</g" $data && \
-perl -p -i -e "s/\"\$|\" $/ alt=\"\" \/>/g" $data && \
+perl -p -i -e "s/\"\$|\" $/\" alt=\"\" \/>/g" $data && \
 pbcopy < $data && \
 rm $data && \
-echo $count'tags : <img src="'$1'" />'
+echo 'Copy'$count'tags : <img src="'$1'..." />'
